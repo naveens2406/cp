@@ -1,0 +1,886 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ==========================================================================
+   Google Fonts Import
+   ========================================================================== */
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Playfair+Display:wght@700;800&family=JetBrains+Mono:wght@500;600;700&display=swap');
+
+/* ==========================================================================
+   CSS Variables & Design Tokens
+   ========================================================================== */
+:root {
+  /* Primary Colors - Deep Plum (Preserved) */
+  --color-primary: #542344;
+  --color-primary-light: #6e2d59;
+  --color-primary-dark: #3a1830;
+  --color-primary-glass: rgba(84, 35, 68, 0.08);
+  
+  /* New Supporting Colors */
+  --color-gold: #C9933A;
+  --color-gold-light: #E8B86D;
+  --color-cream: #FDF8F3;
+  --color-ink: #1A1118;
+  --color-ink-muted: #6B5B68;
+  --color-ink-faint: #C4B4C1;
+  --color-surface: #FFFFFF;
+  --color-border: #EDE5EB;
+  --color-border-strong: #C8B0C3;
+  --color-success: #2D7A4F;
+  --color-warning: #B5680F;
+  --color-error: #B53030;
+  
+  /* Spacing */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-20: 5rem;
+  --space-24: 6rem;
+  
+  /* Border Radius */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-2xl: 24px;
+  --radius-full: 9999px;
+  
+  /* Shadows / Elevation */
+  --shadow-0: 0 0 0 1px var(--color-border);
+  --shadow-1: 0 1px 3px rgba(84,35,68,0.06), 0 1px 2px rgba(84,35,68,0.04);
+  --shadow-2: 0 4px 16px rgba(84,35,68,0.10), 0 2px 6px rgba(84,35,68,0.06);
+  --shadow-3: 0 16px 48px rgba(84,35,68,0.16), 0 4px 16px rgba(84,35,68,0.08);
+  --shadow-4: 0 32px 80px rgba(84,35,68,0.24), 0 8px 24px rgba(84,35,68,0.12);
+  --shadow-glow: 0 0 0 3px rgba(84,35,68,0.20);
+  --shadow-gold-glow: 0 4px 20px rgba(201,147,58,0.35);
+  
+  /* Typography */
+  --font-display: 'Playfair Display', serif;
+  --font-body: 'DM Sans', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+/* ==========================================================================
+   Base Styles
+   ========================================================================== */
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--color-cream);
+  color: var(--color-ink);
+  line-height: 1.65;
+}
+
+/* Typography System */
+h1, h2, h3 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: var(--color-ink);
+  line-height: 1.2;
+}
+
+h1 {
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+h2 {
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
+}
+
+h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+p {
+  color: var(--color-ink-muted);
+}
+
+/* Price Display */
+.price {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ==========================================================================
+   Component Utilities
+   ========================================================================== */
+
+/* Primary Button */
+.btn-primary {
+  @apply px-6 py-3 rounded-lg font-semibold text-sm transition-all duration-200;
+  background: var(--color-primary);
+  color: white;
+  border: 2px solid transparent;
+  box-shadow: var(--shadow-1);
+}
+
+.btn-primary:hover {
+  background: var(--color-primary-light);
+  box-shadow: var(--shadow-glow);
+  transform: translateY(-1px);
+}
+
+/* Gold Accent Button */
+.btn-gold {
+  @apply px-7 py-3 rounded-lg font-bold text-sm transition-all duration-200;
+  background: var(--color-gold);
+  color: white;
+  border: none;
+  box-shadow: var(--shadow-gold-glow);
+}
+
+.btn-gold:hover {
+  background: var(--color-gold-light);
+  transform: translateY(-2px);
+}
+
+/* Ghost Button */
+.btn-ghost {
+  @apply px-6 py-3 rounded-lg font-semibold text-sm transition-all duration-200;
+  background: transparent;
+  color: var(--color-primary);
+  border: 1.5px solid var(--color-primary);
+}
+
+.btn-ghost:hover {
+  background: var(--color-primary-glass);
+}
+
+/* Secondary Button */
+.btn-secondary {
+  @apply px-5 py-2.5 rounded-lg font-semibold transition-all duration-300;
+  background: #f3f0f4;
+  color: var(--color-ink);
+}
+
+.btn-secondary:hover {
+  background: #e8e4e9;
+}
+
+/* Card */
+.card {
+  @apply rounded-xl p-6;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-1);
+  transition: all 0.2s ease;
+}
+
+.card:hover {
+  box-shadow: var(--shadow-2);
+  transform: translateY(-2px);
+}
+
+/* Form Label */
+.form-label {
+  @apply block text-sm font-semibold mb-1.5;
+  color: var(--color-ink);
+}
+
+/* Form Input */
+.form-input {
+  @apply w-full px-4 rounded-lg transition-all duration-200 outline-none;
+  height: 48px;
+  border: 1.5px solid var(--color-border);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: var(--color-ink);
+  background: white;
+}
+
+.form-input:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(84,35,68,0.12);
+}
+
+.form-input::placeholder {
+  color: var(--color-ink-faint);
+  font-style: italic;
+}
+
+/* ==========================================================================
+   Status Badges
+   ========================================================================== */
+.badge {
+  @apply inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider;
+}
+
+.badge::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0.8;
+}
+
+.badge-pending {
+  background: #FEF3C7;
+  color: #92400E;
+}
+
+.badge-processing {
+  background: #DBEAFE;
+  color: #1E40AF;
+}
+
+.badge-processing::before {
+  animation: pulse 1.5s infinite;
+}
+
+.badge-completed {
+  background: #D1FAE5;
+  color: #065F46;
+}
+
+.badge-delivered {
+  background: #EDE9FE;
+  color: #4C1D95;
+}
+
+.badge-cancelled {
+  background: #FEE2E2;
+  color: #991B1B;
+}
+
+/* Legacy status classes */
+.status-pending { @apply badge-pending; }
+.status-processing { @apply badge-processing; }
+.status-completed { @apply badge-completed; }
+.status-delivered { @apply badge-delivered; }
+
+/* ==========================================================================
+   Section Label (uppercase, decorative)
+   ========================================================================== */
+.section-label {
+  @apply inline-flex items-center gap-4 text-xs font-semibold uppercase tracking-widest mb-6;
+  color: var(--color-ink-muted);
+}
+
+.section-label::before,
+.section-label::after {
+  content: '';
+  height: 1px;
+  width: 40px;
+  background: var(--color-border-strong);
+}
+
+/* ==========================================================================
+   Keyframe Animations
+   ========================================================================== */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(32px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(84, 35, 68, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 0 12px rgba(84, 35, 68, 0);
+  }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -468px 0; }
+  100% { background-position: 468px 0; }
+}
+
+@keyframes scrollLeft {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes bounceSoft {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+@keyframes modal-pop {
+  0% {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Shake animation for form validation */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+}
+
+.animate-shake {
+  animation: shake 0.3s ease-in-out 3;
+}
+
+/* ==========================================================================
+   Animation Utility Classes
+   ========================================================================== */
+.animate-fade-in-up {
+  animation: fadeInUp 0.6s ease both;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease both;
+}
+
+.animate-slide-left {
+  animation: slideInLeft 0.6s ease both;
+}
+
+.animate-slide-right {
+  animation: slideInRight 0.6s ease both;
+}
+
+.animate-scale-in {
+  animation: scaleIn 0.5s ease both;
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulseGlow 2.5s infinite;
+}
+
+.animate-bounce-soft {
+  animation: bounceSoft 2s ease-in-out infinite;
+}
+
+.animate-scroll-left {
+  animation: scrollLeft 25s linear infinite;
+}
+
+.animate-modal-pop {
+  animation: modal-pop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+/* Delay helpers */
+.delay-100 { animation-delay: 0.1s; }
+.delay-200 { animation-delay: 0.2s; }
+.delay-300 { animation-delay: 0.3s; }
+.delay-400 { animation-delay: 0.4s; }
+.delay-500 { animation-delay: 0.5s; }
+.delay-600 { animation-delay: 0.6s; }
+.delay-700 { animation-delay: 0.7s; }
+.delay-800 { animation-delay: 0.8s; }
+
+/* ==========================================================================
+   Special UI Components
+   ========================================================================== */
+
+/* Gradient text */
+.gradient-text {
+  background: linear-gradient(135deg, #542344, #8b4a7a, #d4a0c0);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Hero gradient background */
+.hero-gradient {
+  background: linear-gradient(135deg, #542344 0%, #3d1832 50%, #6b2654 100%);
+}
+
+/* Glass card */
+.glass-card {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Ticker / marquee container */
+.ticker-wrapper {
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.ticker-content {
+  display: inline-flex;
+  animation: scrollLeft 25s linear infinite;
+}
+
+.ticker-content:hover {
+  animation-play-state: paused;
+}
+
+/* Card hover lift */
+.card-hover {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+}
+
+/* Section reveal animation */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Scrollbar hide */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Dot indicator */
+.dot-active {
+  background: var(--color-primary);
+  width: 24px;
+  height: 8px;
+  border-radius: 4px;
+  transition: all 0.3s;
+}
+
+.dot-inactive {
+  background: #d1d5db;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  transition: all 0.3s;
+}
+
+/* WhatsApp pulse */
+.whatsapp-btn {
+  animation: pulseGlow 2.5s infinite;
+  background-color: #25D366;
+}
+
+.whatsapp-btn:hover {
+  transform: scale(1.1);
+  animation: none;
+}
+
+/* ==========================================================================
+   Confetti & Celebration Animations
+   ========================================================================== */
+@keyframes confetti-fall {
+  0% {
+    transform: translateY(-100vh) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh) rotate(720deg);
+    opacity: 0;
+  }
+}
+
+.confetti-piece {
+  position: fixed;
+  width: 10px;
+  height: 10px;
+  top: -10px;
+  z-index: 1000;
+  animation: confetti-fall 4s linear infinite;
+  pointer-events: none;
+}
+
+/* ==========================================================================
+   3D Flip Card
+   ========================================================================== */
+.flip-card {
+  perspective: 1200px;
+  cursor: pointer;
+}
+
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.7s cubic-bezier(0.4, 0.2, 0.2, 1);
+  transform-style: preserve-3d;
+}
+
+.flip-card:hover .flip-card-inner {
+  transform: rotateY(180deg);
+}
+
+.flip-card-front,
+.flip-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+.flip-card-back {
+  transform: rotateY(180deg);
+}
+
+/* ==========================================================================
+   Skeleton Loading Shimmer
+   ========================================================================== */
+.skeleton {
+  border-radius: var(--radius-lg);
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 700px 100%;
+  animation: shimmer 1.5s infinite linear;
+}
+
+/* New primary-glass shimmer */
+.skeleton-glass {
+  border-radius: var(--radius-lg);
+  background: linear-gradient(90deg, var(--color-border) 25%, var(--color-primary-glass) 50%, var(--color-border) 75%);
+  background-size: 700px 100%;
+  animation: shimmer 1.5s infinite linear;
+}
+
+/* ==========================================================================
+   Service Card - Premium Hover Reveal
+   ========================================================================== */
+.service-card {
+  @apply rounded-xl p-6 relative overflow-hidden;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-1);
+  transition: all 0.2s ease-out;
+}
+
+.service-card:hover {
+  border-color: var(--color-primary);
+  box-shadow: var(--shadow-2);
+  transform: translateY(-4px);
+}
+
+.service-card-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: var(--space-4);
+}
+
+.service-card-price {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  color: var(--color-ink);
+}
+
+.service-card-price-prefix {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 0.75rem;
+  color: var(--color-ink-muted);
+}
+
+.service-card-cta {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: var(--space-4);
+  background: var(--color-primary);
+  color: white;
+  transform: translateY(100%);
+  transition: transform 0.2s ease-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+}
+
+.service-card:hover .service-card-cta {
+  transform: translateY(0);
+}
+
+/* ==========================================================================
+   Print-Inspired Decorative Elements
+   ========================================================================== */
+
+/* Crop mark corners */
+.crop-mark {
+  position: absolute;
+  width: 12px;
+  height: 1px;
+  background: rgba(84, 35, 68, 0.2);
+}
+
+.crop-mark-top-left {
+  top: 8px;
+  left: 8px;
+}
+
+.crop-mark-top-right {
+  top: 8px;
+  right: 8px;
+  transform: rotate(90deg);
+}
+
+.crop-mark-bottom-left {
+  bottom: 8px;
+  left: 8px;
+  transform: rotate(-90deg);
+}
+
+.crop-mark-bottom-right {
+  bottom: 8px;
+  right: 8px;
+  transform: rotate(180deg);
+}
+
+/* Registration dot */
+.registration-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: 1px solid var(--color-gold);
+  position: relative;
+}
+
+.registration-dot::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--color-gold);
+}
+
+/* Ink bleed line (section divider) */
+.ink-divider {
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--color-primary), transparent);
+  opacity: 0.3;
+}
+
+/* ==========================================================================
+   Empty States
+   ========================================================================== */
+.empty-state {
+  @apply text-center py-16;
+}
+
+.empty-state-icon {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto var(--space-4);
+  color: var(--color-ink-faint);
+}
+
+.empty-state-title {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  color: var(--color-ink);
+  margin-bottom: var(--space-2);
+}
+
+.empty-state-text {
+  color: var(--color-ink-muted);
+  margin-bottom: var(--space-6);
+}
+
+/* ==========================================================================
+   Toast Notifications (upgraded)
+   ========================================================================== */
+.toast-container {
+  position: fixed;
+  top: var(--space-4);
+  right: var(--space-4);
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.toast {
+  @apply rounded-lg p-4 flex items-start gap-3 shadow-lg;
+  min-width: 300px;
+  max-width: 400px;
+  animation: slideInRight 0.3s ease;
+}
+
+.toast-success {
+  background: #D1FAE5;
+  border-left: 4px solid var(--color-success);
+}
+
+.toast-error {
+  background: #FEE2E2;
+  border-left: 4px solid var(--color-error);
+}
+
+.toast-info {
+  background: var(--color-primary-glass);
+  border-left: 4px solid var(--color-primary);
+}
+
+/* ==========================================================================
+   Mobile Bottom Tab Bar (for customer portal)
+   ========================================================================== */
+.mobile-tab-bar {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: white;
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
+  padding: var(--space-2) 0;
+  z-index: 100;
+}
+
+@media (max-width: 768px) {
+  .mobile-tab-bar {
+    display: flex;
+    justify-content: space-around;
+  }
+}
+
+.mobile-tab {
+  @apply flex flex-col items-center gap-1 p-2;
+  color: var(--color-ink-muted);
+}
+
+.mobile-tab-active {
+  color: var(--color-gold);
+}
+
+.mobile-tab-active::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--color-gold);
+}
+
+/* ==========================================================================
+   Navbar Upgrade
+   ========================================================================== */
+.navbar {
+  @apply sticky top-0 z-50;
+  background: white;
+  border-bottom: 1px solid var(--color-border);
+  transition: all 0.3s ease;
+}
+
+.navbar-scrolled {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(8px);
+  box-shadow: var(--shadow-1);
+}
+
+/* ==========================================================================
+   Page Transition
+   ========================================================================== */
+.page-transition {
+  animation: fadeInUp 0.3s ease;
+}
+
+/* ==========================================================================
+   Counter Animation
+   ========================================================================== */
+.counter-animate {
+  transition: all 0.3s ease-out;
+}
+
+/* ==========================================================================
+   Focus Styles
+   ========================================================================== */
+*:focus-visible {
+  outline: none;
+  box-shadow: var(--shadow-glow);
+}
+
+/* ==========================================================================
+   Selection
+   ========================================================================== */
+::selection {
+  background: var(--color-primary-glass);
+  color: var(--color-primary);
+}

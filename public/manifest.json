@@ -1,0 +1,9 @@
+{
+  "name": "Sunlight Offset Printers",
+  "short_name": "Sunlight",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#EBF5EE",
+  "theme_color": "#542344",
+  "description": "Professional printing services with analytics-driven management"
+}
