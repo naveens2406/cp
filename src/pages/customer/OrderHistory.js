@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
-import mockApi from '../../services/mockApi';
+import { ordersApi } from '../../services/apiClient';
 import {
   ShoppingBag,
   Calendar,
@@ -39,8 +39,8 @@ const OrderHistory = () => {
 
   const fetchOrders = async () => {
     try {
-      const response = await mockApi.getOrders();
-      setOrders(response.data);
+      const response = await ordersApi.getUserOrders();
+      setOrders(response.data || []);
     } catch (error) {
       toast.error('Failed to fetch orders');
     } finally {
@@ -49,13 +49,16 @@ const OrderHistory = () => {
   };
 
   const fetchInvoices = async () => {
+    // Invoice functionality not yet implemented in backend
+    // When available, this will fetch invoices from the API
+    // For now, we'll skip this
     try {
-      const response = await mockApi.getInvoices();
-      const invoiceMap = {};
-      response.data.forEach(invoice => {
-        invoiceMap[invoice.order_id] = invoice;
-      });
-      setInvoices(invoiceMap);
+      // const response = await ordersApi.getInvoices();
+      // const invoiceMap = {};
+      // response.data.forEach(invoice => {
+      //   invoiceMap[invoice.order_id] = invoice;
+      // });
+      // setInvoices(invoiceMap);
     } catch (error) {
       console.error('Failed to fetch invoices:', error);
     }

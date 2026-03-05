@@ -49,7 +49,13 @@ const Register = ({ title }) => {
     setLoading(true);
 
     try {
-      const { confirm_password, ...registrationData } = formData;
+      const registrationData = {
+        name: formData.full_name || formData.username,
+        email: formData.email,
+        phone: formData.phone,
+        password: formData.password,
+        confirmPassword: formData.confirm_password
+      };
       const result = await register(registrationData);
       if (result.success) {
         setTimeout(() => {

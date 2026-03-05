@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import axios from 'axios';
 import toast from 'react-hot-toast';
-import mockApi from '../services/mockApi';
+import { authApi } from '../services/apiClient';
 
 const AuthContext = createContext();
 
@@ -43,19 +43,20 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (credentials) => {
     try {
-      const response = await mockApi.login(credentials);
-      const { access_token, user: userData } = response.data;
+      // credentials should have email and password for the real API
+      const response = await authApi.login(credentials.email || credentials.username, credentials.password);
+      const { token, user: userData } = response.data;
       
-      localStorage.setItem('token', access_token);
+      localStorage.setItem('token', token);
       localStorage.setItem('user', JSON.stringify(userData));
-      setToken(access_token);
+      setToken(token);
       setUser(userData);
-      axios.defaults.headers.common['Authorization'] = `Bearer ${access_token}`;
+      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
       
       toast.success('Login successful!');
-      return { success: true, role: userData.role };
+      return { success: true, role: userData.user_type };
     } catch (error) {
-      const message = error.response?.data?.detail || error.message || 'Login failed';
+      const message = error.response?.data?.message || error.message || 'Login failed';
       toast.error(message);
       return { success: false, error: message };
     }
@@ -63,11 +64,11 @@ export const AuthProvider = ({ children }) => {
 
   const register = async (userData) => {
     try {
-      await mockApi.register(userData);
+      await authApi.register(userData.name, userData.email, userData.phone, userData.password, userData.confirmPassword);
       toast.success('Registration successful! Please login.');
       return { success: true };
     } catch (error) {
-      const message = error.response?.data?.detail || error.message || 'Registration failed';
+      const message = error.response?.data?.message || error.message || 'Registration failed';
       toast.error(message);
       return { success: false, error: message };
     }
@@ -97,8 +98,8 @@ export const AuthProvider = ({ children }) => {
     changeCredentials,
     logout,
     isAuthenticated: !!user,
-    isAdmin: user?.role === 'admin',
-    isCustomer: user?.role === 'customer'
+    isAdmin: user?.user_type === 'admin',
+    isCustomer: user?.user_type === 'customer'
   };
 
   return (

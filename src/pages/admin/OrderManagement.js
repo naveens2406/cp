@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../contexts/AuthContext';
 import axios from 'axios';
-import mockApi from '../../services/mockApi';
+import { ordersApi } from '../../services/apiClient';
 import {
   ShoppingBag,
   Edit,
@@ -52,16 +52,8 @@ const OrderManagement = () => {
 
   const fetchOrders = async () => {
     try {
-      const response = await mockApi.getOrders();
-      const mappedOrders = response.data.orders.map(o => ({
-        ...o,
-        order_number: `ORD-${o.id}`,
-        customer: { full_name: o.customer },
-        customer_type: 'online', // Default for mock
-        total_amount: o.total,
-        status: o.status.toLowerCase()
-      }));
-      setOrders(mappedOrders);
+      const response = await ordersApi.getOrders();
+      setOrders(response.data || []);
     } catch (error) {
       toast.error('Failed to fetch orders');
     } finally {
@@ -71,8 +63,9 @@ const OrderManagement = () => {
 
   const fetchServices = async () => {
     try {
-      const res = await mockApi.getServices();
-      setServices(res.data.services);
+      // Services API not yet implemented in backend
+      // const res = await ordersApi.getServices();
+      // setServices(res.data.services);
     } catch (e) {
       // ignore
     }
@@ -104,8 +97,7 @@ const OrderManagement = () => {
 
   const updateOrderStatus = async (orderId, payload) => {
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 500));
+      await ordersApi.updateOrderStatus(orderId, payload.status, payload.notes);
 
       setOrders(prev => prev.map(o =>
         o.id === orderId
@@ -115,7 +107,7 @@ const OrderManagement = () => {
 
       setEditModalOpen(false);
       setEditingOrder(null);
-      toast.success('Order updated successfully (Mock)');
+      toast.success('Order updated successfully');
     } catch (error) {
       toast.error('Failed to update order');
     }

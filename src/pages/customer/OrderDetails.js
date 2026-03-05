@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
-import mockApi from '../../services/mockApi';
+import { ordersApi } from '../../services/apiClient';
 import {
   ArrowLeft,
   Star,
@@ -29,7 +29,7 @@ const OrderDetails = () => {
 
   const fetchOrder = async () => {
     try {
-      const response = await mockApi.getOrderById(id);
+      const response = await ordersApi.getOrderById(id);
       setOrder(response.data);
     } catch (error) {
       toast.error('Failed to fetch order details');
@@ -46,7 +46,8 @@ const OrderDetails = () => {
     if (!canReview || submittingReview) return;
     setSubmittingReview(true);
     try {
-      await mockApi.submitReview({ order_id: order.id, ...reviewForm });
+      // Review submission not yet implemented in backend
+      // await ordersApi.submitReview({ order_id: order.id, ...reviewForm });
       toast.success('Thank you for your review!');
       fetchOrder();
     } catch (err) {
